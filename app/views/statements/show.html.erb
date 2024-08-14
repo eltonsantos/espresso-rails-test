@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Performed at:</strong>
+  <%= @statement.performed_at %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @statement.cost %>
+</p>
+
+<p>
+  <strong>Merchant:</strong>
+  <%= @statement.merchant %>
+</p>
+
+<p>
+  <strong>Transaction:</strong>
+  <%= @statement.transaction_id %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @statement.category %>
+</p>
+
+<%= link_to 'Edit', edit_statement_path(@statement) %> |
+<%= link_to 'Back', statements_path %>
