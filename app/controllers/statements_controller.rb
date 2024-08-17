@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class StatementsController < ApplicationController
-  before_action :set_statement, only: %i[ show edit update destroy ]
+  before_action :set_statement, only: %i[show edit update destroy]
 
   # GET /statements or /statements.json
   def index
@@ -7,8 +9,7 @@ class StatementsController < ApplicationController
   end
 
   # GET /statements/1 or /statements/1.json
-  def show
-  end
+  def show; end
 
   # GET /statements/new
   def new
@@ -16,8 +17,7 @@ class StatementsController < ApplicationController
   end
 
   # GET /statements/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /statements or /statements.json
   def create
@@ -25,7 +25,7 @@ class StatementsController < ApplicationController
 
     respond_to do |format|
       if @statement.save
-        format.html { redirect_to statement_url(@statement), notice: "Statement was successfully created." }
+        format.html { redirect_to statement_url(@statement), notice: 'Statement was successfully created.' }
         format.json { render :show, status: :created, location: @statement }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class StatementsController < ApplicationController
   def update
     respond_to do |format|
       if @statement.update(statement_params)
-        format.html { redirect_to statement_url(@statement), notice: "Statement was successfully updated." }
+        format.html { redirect_to statement_url(@statement), notice: 'Statement was successfully updated.' }
         format.json { render :show, status: :ok, location: @statement }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,20 @@ class StatementsController < ApplicationController
     @statement.destroy
 
     respond_to do |format|
-      format.html { redirect_to statements_url, notice: "Statement was successfully destroyed." }
+      format.html { redirect_to statements_url, notice: 'Statement was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_statement
-      @statement = Statement.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def statement_params
-      params.require(:statement).permit(:performed_at, :cost, :merchant, :transaction_id, :category_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_statement
+    @statement = Statement.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def statement_params
+    params.require(:statement).permit(:performed_at, :cost, :merchant, :transaction_id, :category_id)
+  end
 end

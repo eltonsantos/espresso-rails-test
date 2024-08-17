@@ -1,3 +1,10 @@
+# frozen_string_literal: true
+
 class Statement < ApplicationRecord
-  belongs_to :category
+  belongs_to :card, optional: true
+  belongs_to :category, optional: true
+
+  has_one :attachment
+
+  validates :performed_at, :cost, :merchant, :transaction_id, presence: true
 end
