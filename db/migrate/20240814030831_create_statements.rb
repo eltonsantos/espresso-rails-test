@@ -6,7 +6,8 @@ class CreateStatements < ActiveRecord::Migration[5.2]
       t.datetime :performed_at
       t.integer :cost
       t.string :merchant
-      t.integer :transaction_id
+      t.string :transaction_id
+      t.references :card, foreign_key: true
       t.references :category, foreign_key: true
 
       t.timestamps
