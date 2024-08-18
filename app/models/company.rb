@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
-  has_many :categories
-  has_many :users
-  has_many :cards
+  has_many :categories, dependent: :destroy
+  has_many :users, dependent: :destroy
+  has_many :cards, dependent: :destroy
 end

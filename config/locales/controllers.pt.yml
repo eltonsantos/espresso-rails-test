@@ -1,0 +1,38 @@
+pt-BR:
+  api:
+    baas:
+      webhooks:
+        create:
+          success: "Despesa criada com sucesso"
+          
+  admin:
+    create:
+      success: "Cadastro realizado com sucesso."
+  
+  cards:
+    create:
+      success: "Cartão criado com sucesso."
+    update:
+      success: "Cartão atualizado com sucesso."
+      
+  categories:
+    create:
+      success: "Categoria criada com sucesso."
+    update:
+      success: "Categoria atualizada com sucesso."
+      
+  companies:
+    create:
+      success: "Empresa criada com sucesso."
+      
+  statements:
+    update:
+      success: "Despesa atualizada com sucesso"
+    archive:
+      success: "Despesa arquivada com sucesso"
+  
+  users:
+    create:
+      success: "Usuário cadastrado com sucesso."
+    update:
+      success: "Usuário atualizado com sucesso."

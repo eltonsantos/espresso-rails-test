@@ -1,0 +1,13 @@
+pt-BR:
+  devise:
+    sessions:
+      signed_in: "Você fez login com sucesso."
+      signed_out: "Você saiu com sucesso."
+    registrations:
+      signed_up: "Conta criada com sucesso."
+      updated: "Conta atualizada com sucesso."
+      destroyed: "Conta excluída com sucesso."
+    passwords:
+      send_instructions: "Instruções de redefinição de senha enviadas."
+      updated: "Senha atualizada com sucesso."
+      updated_not_active: "Sua conta ainda não está ativa. Você deve esperar até que ela seja ativada antes de redefinir sua senha."

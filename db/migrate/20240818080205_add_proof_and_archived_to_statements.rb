@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 class AddProofAndArchivedToStatements < ActiveRecord::Migration[5.2]
   def change
-    add_column :statements, :proof, :boolean, default: false
-    add_column :statements, :archived, :boolean, default: false
+    change_table :statements, bulk: true do |t|
+      t.boolean :proof, default: false, null: false
+      t.boolean :archived, default: false, null: false
+    end
   end
 end

@@ -6,11 +6,11 @@ module StatementsHelper
   end
 
   def formatted_cost(cost)
-    number_to_currency(cost.to_f, unit: "R$ ", separator: ",", delimiter: ".", precision: 2)
+    number_to_currency(cost.to_f, unit: 'R$ ', separator: ',', delimiter: '.', precision: 2)
   end
 
   def formatted_date(date)
-    date.strftime("%d/%m/%Y") if date.present?
+    date.strftime('%d/%m/%Y') if date.present?
   end
 
   def category_select(form, categories)
@@ -19,9 +19,9 @@ module StatementsHelper
   end
 
   def display_image(statement)
-    if statement.attachment.present?
-      image_tag(statement.attachment.file.url(:thumb))
-    end
+    return if statement.attachment.blank?
+
+    image_tag(statement.attachment.file.url(:thumb))
   end
 
   def display_card(statement)
@@ -34,5 +34,5 @@ module StatementsHelper
 
   def display_category(statement)
     statement.category ? statement.category.name : 'Sem classificação'
-  end  
+  end
 end

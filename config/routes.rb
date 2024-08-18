@@ -8,15 +8,15 @@ Rails.application.routes.draw do
       patch :archive
     end
   end
-  resources :cards, only: [:index, :new, :create, :edit, :update]
-  resources :users, only: [:index, :new, :create, :edit, :update]
+  resources :cards, only: %i[index new create edit update]
+  resources :users, only: %i[index new create edit update]
   devise_for :users, path: '',
                      path_names: { sign_up: 'sign_up' },
                      controllers: {
-                        registrations: 'users/registrations'
+                       registrations: 'admin/registrations'
                      }
-  
-  resources :categories, only: [:index, :new, :create, :edit, :update]
+
+  resources :categories, only: %i[index new create edit update]
   resources :companies
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

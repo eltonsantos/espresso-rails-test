@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :company, optional: true
-  has_one :card
+  has_one :card, dependent: :destroy
 
   enum role: { admin: 0, employee: 1 }
 
