@@ -2,6 +2,12 @@
 
 class CreateStatements < ActiveRecord::Migration[5.2]
   def change
+    create_statements_table
+  end
+
+  private
+
+  def create_statements_table
     create_table :statements do |t|
       t.datetime :performed_at
       t.integer :cost

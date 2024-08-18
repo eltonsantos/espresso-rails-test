@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_14_030910) do
+ActiveRecord::Schema.define(version: 2024_08_17_232221) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "file_file_name"
@@ -50,10 +50,14 @@ ActiveRecord::Schema.define(version: 2024_08_14_030910) do
     t.datetime "performed_at"
     t.integer "cost"
     t.string "merchant"
-    t.integer "transaction_id"
+    t.string "transaction_id"
+    t.bigint "card_id"
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "proof", default: false, null: false
+    t.boolean "archived", default: false, null: false
+    t.index ["card_id"], name: "index_statements_on_card_id"
     t.index ["category_id"], name: "index_statements_on_category_id"
   end
 
@@ -63,10 +67,10 @@ ActiveRecord::Schema.define(version: 2024_08_14_030910) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.bigint "company_id"
     t.integer "role"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -76,6 +80,7 @@ ActiveRecord::Schema.define(version: 2024_08_14_030910) do
   add_foreign_key "attachments", "statements"
   add_foreign_key "cards", "users"
   add_foreign_key "categories", "companies"
+  add_foreign_key "statements", "cards"
   add_foreign_key "statements", "categories"
   add_foreign_key "users", "companies"
 end
