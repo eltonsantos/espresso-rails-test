@@ -7,21 +7,27 @@ module Api
       skip_before_action :verify_authenticity_token
 
       def create
-        transaction_data = params.permit(:merchant, :cost, :created_at, :last4, :transaction_id, :card_id)
+        statement = build_statement
 
-        statement = Statement.new(
-          merchant: transaction_data[:merchant],
-          cost: transaction_data[:cost].to_f / 100,
-          performed_at: transaction_data[:created_at].to_datetime.in_time_zone('Brasilia'),
-          transaction_id: transaction_data[:transaction_id],
-          card_id: transaction_data[:card_id]
+        return unless statement.save
+
+        render json: { message: I18n.t('api.baas.webhooks.create.success') }, status: :created
+      end
+
+      private
+
+      def transaction_params
+        params.permit(:merchant, :cost, :created_at, :last4, :transaction_id, :card_id)
+      end
+
+      def build_statement
+        Statement.new(
+          merchant: transaction_params[:merchant],
+          cost: transaction_params[:cost].to_f / 100,
+          performed_at: transaction_params[:created_at].to_datetime.in_time_zone('Brasilia'),
+          transaction_id: transaction_params[:transaction_id],
+          card_id: transaction_params[:card_id]
         )
-
-        if statement.save
-          render json: { message: I18n.t('api.baas.webhooks.create.success') }, status: :created
-        else
-          render json: { errors: statement.errors.full_messages }, status: :unprocessable_entity
-        end
       end
     end
   end

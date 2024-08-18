@@ -15,10 +15,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.role = 1
-    @user.company_id = current_user.company_id
-    generated_password = Devise.friendly_token.first(8)
-    @user.password = generated_password
+    assign_defaults(@user)
 
     respond_to do |format|
       if @user.save
@@ -42,11 +39,19 @@ class UsersController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    def user_params
-      params.require(:user).permit(:name, :email)
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email)
+  end
+
+  def assign_defaults(_user)
+    @user.role = 1
+    @user.company_id = current_user.company_id
+    generated_password = Devise.friendly_token.first(8)
+    @user.password = generated_password
+  end
 end

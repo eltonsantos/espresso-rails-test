@@ -6,15 +6,7 @@ class StatementsController < ApplicationController
 
   # GET /statements or /statements.json
   def index
-    if current_user.admin?
-      @statements = Statement.joins(card: :user).where(users: { company_id: current_user.company_id },
-                                                       archived: false).order(performed_at: :desc)
-      @archived_statements = Statement.joins(card: :user).where(users: { company_id: current_user.company_id },
-                                                                archived: true).order(performed_at: :desc)
-    else
-      @statements = Statement.joins(:card).where(cards: { user_id: current_user.id },
-                                                 archived: false).order(performed_at: :desc)
-    end
+    @statements = current_user.admin? ? admin_statements : user_statements
   end
 
   # GET /statements/1/edit
@@ -54,5 +46,20 @@ class StatementsController < ApplicationController
   def statement_params
     params.require(:statement).permit(:performed_at, :cost, :merchant, :transaction_id, :card_id, :category_id,
                                       attachment_attributes: [:file])
+  end
+
+  def admin_statements
+    @statements = Statement.by_company(current_user.company_id)
+                           .not_archived
+                           .ordered_by_performed_at
+    @archived_statements = Statement.by_company(current_user.company_id)
+                                    .archived
+                                    .ordered_by_performed_at
+  end
+
+  def user_statements
+    @statements = Statement.by_user(current_user.id)
+                           .not_archived
+                           .ordered_by_performed_at
   end
 end
